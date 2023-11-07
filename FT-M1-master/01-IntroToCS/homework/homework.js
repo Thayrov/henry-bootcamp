@@ -1,8 +1,9 @@
 'use strict';
 
 let BinarioADecimal = num => parseInt(num, 2);
-/*  
-function BinarioADecimal(num) {
+let DecimalABinario = num => num.toString(2);
+
+/* function BinarioADecimal(num) {
   let binario = num.split('').reverse();
   let decimal = binario
   .map((b, index) => {
@@ -10,10 +11,9 @@ function BinarioADecimal(num) {
   })
   .reduce((acc, curr) => acc + curr);
   return decimal; 
-} */
+}
 
-let DecimalABinario = num => num.toString(2);
-/*   
+  
 function DecimalABinario(num) {
   if (num === 0) return '0';
   let bin = [];
@@ -23,8 +23,7 @@ function DecimalABinario(num) {
   }
   let res = bin.join('');
   return res; 
-}
-*/
+} */
 
 module.exports = {
   BinarioADecimal,
