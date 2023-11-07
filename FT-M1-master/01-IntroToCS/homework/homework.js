@@ -15,6 +15,7 @@ function BinarioADecimal(num) {
 let DecimalABinario = num => num.toString(2);
 /*   
 function DecimalABinario(num) {
+  if (num === 0) return '0';
   let bin = [];
   while (num > 0) {
     bin.unshift(num % 2);
