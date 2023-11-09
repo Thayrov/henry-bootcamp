@@ -14,12 +14,10 @@ const otroContador = counter()
 otroContador()      // 1
 otroContador()      // 2 */
 function counter() {
-  let count = 0;
-  return function () {
-    count += 1;
-    return count;
-  };
+  let count = 1;
+  return () => count++;
 }
+
 /* Ejercicio 2
 Tu tarea aquí es lograr, mediante un closure, que cacheFunction actúe como una memoria caché para el callback 
 que recibe por parámetro (cb); es decir, que "recuerde" el resultado de cada operación que hace, de manera que, 
@@ -40,12 +38,7 @@ otra vez cálculos que ya se hicieron anteriormente.
 
 function cacheFunction(cb) {
   const cache = {};
-  return function (arg) {
-    if (!cache.hasOwnProperty(arg)) {
-      cache[arg] = cb(arg);
-    }
-    return cache[arg];
-  };
+  return arg => (cache.hasOwnProperty(arg) ? cache[arg] : (cache[arg] = cb(arg)));
 }
 
 //----------------------------------------
