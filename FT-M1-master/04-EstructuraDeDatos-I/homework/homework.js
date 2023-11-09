@@ -14,7 +14,7 @@ Secuencia:  0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...
 Como ejercicio adicional y completamente opcional, al terminar de resolver este problema pueden intentar definir funciones que logren los mismos resultados pero de manera iterativa.
 */
 
-let nFactorial = n => (n === 1 ? 1 : n * nFactorial(n - 1));
+const nFactorial = n => (n === 1 ? 1 : n * nFactorial(n - 1));
 
 /* let nFactorialIterative = n => {
   let result = 1;
@@ -24,7 +24,7 @@ let nFactorial = n => (n === 1 ? 1 : n * nFactorial(n - 1));
   return result;
 }; */
 
-let nFibonacci = n => (n <= 1 ? n : nFibonacci(n - 1) + nFibonacci(n - 2));
+const nFibonacci = n => (n <= 1 ? n : nFibonacci(n - 1) + nFibonacci(n - 2));
 /* let nFibonacciIterative = n => {
   if (n <= 1) return n;
 
@@ -55,6 +55,32 @@ class Queue {
   dequeue = () => this.arr.shift();
   size = () => this.arr.length;
 }
+
+/* function Queue() {
+  this.array = [];
+}
+Queue.prototype.enqueue = function(e) {
+  this.array.push(e);
+}
+Queue.prototype.dequeue = function() {
+  return this.array.shift();
+}
+Queue.prototype.size = function() {
+  return this.array.length;
+} */
+
+/* function Queue() {
+  this.array = [];
+  this.enqueue = function(elemento) {
+    return this.array.push(elemento);
+  }
+  this.dequeue = function() {
+    return this.array.shift();
+  }
+  this.size = function() {
+    return this.array.length;
+  }
+} */
 
 /*⚠️ No modificar nada debajo de esta línea ⚠️*/
 module.exports = {
