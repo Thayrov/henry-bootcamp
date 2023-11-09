@@ -13,6 +13,7 @@ nuevoContador()     // 2
 const otroContador = counter()
 otroContador()      // 1
 otroContador()      // 2 */
+
 function counter() {
   let count = 1;
   return () => count++;
@@ -78,8 +79,8 @@ function crearCadena(delimitadorIzquierda, delimitadorDerecha, cadena) {
 }
 
 let textoAsteriscos = crearCadena.bind(null, '*', '*');
-let textoGuiones = crearCadena.bind(null, '-', '-');
-let textoUnderscore = crearCadena.bind(null, '_', '_');
+let textoGuiones = crearCadena.bind(this, '-', '-');
+let textoUnderscore = crearCadena.bind(undefined, '_', '_');
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
