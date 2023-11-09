@@ -16,7 +16,27 @@ Como ejercicio adicional y completamente opcional, al terminar de resolver este 
 
 let nFactorial = n => (n === 1 ? 1 : n * nFactorial(n - 1));
 
+/* let nFactorialIterative = n => {
+  let result = 1;
+  for (let i = n; i > 1; i--) {
+    result *= i;
+  }
+  return result;
+}; */
+
 let nFibonacci = n => (n <= 1 ? n : nFibonacci(n - 1) + nFibonacci(n - 2));
+/* let nFibonacciIterative = n => {
+  if (n <= 1) return n;
+
+  let previous = 0,
+    current = 1;
+  for (let i = 2; i <= n; i++) {
+    let next = previous + current;
+    previous = current;
+    current = next;
+  }
+  return current;
+}; */
 
 /*
 Implementar la clase Queue, sabiendo que es una estructura de tipo FIFO, donde el primer elemento que ingresa es el primero que se quita. Definir los siguientes métodos:
@@ -29,11 +49,11 @@ Pueden utilizar class o función constructora.
 
 class Queue {
   constructor() {
-    this.array = [];
+    this.arr = [];
   }
-  enqueue = elemento => this.array.push(elemento);
-  dequeue = () => this.array.shift();
-  size = () => this.array.length;
+  enqueue = e => this.arr.push(e);
+  dequeue = () => this.arr.shift();
+  size = () => this.arr.length;
 }
 
 /*⚠️ No modificar nada debajo de esta línea ⚠️*/
