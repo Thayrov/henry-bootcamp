@@ -24,8 +24,9 @@ const nFactorial = n => (n === 1 ? 1 : n * nFactorial(n - 1));
   return result;
 }; */
 
-const nFibonacci = n => (n <= 1 ? n : nFibonacci(n - 1) + nFibonacci(n - 2));
-/* let nFibonacciIterative = n => {
+// const nFibonacci = n => (n <= 1 ? n : nFibonacci(n - 1) + nFibonacci(n - 2));
+
+/* const nFibonacciIterative = n => {
   if (n <= 1) return n;
 
   let previous = 0,
@@ -37,6 +38,17 @@ const nFibonacci = n => (n <= 1 ? n : nFibonacci(n - 1) + nFibonacci(n - 2));
   }
   return current;
 }; */
+
+const nFibonacci = n => {
+  const cache = {};
+  const fibonacci = n => {
+    if (n <= 1) return n;
+    if (cache[n]) return cache[n];
+    cache[n] = fibonacci(n - 1) + fibonacci(n - 2);
+    return cache[n];
+  };
+  return fibonacci(n);
+};
 
 /*
 Implementar la clase Queue, sabiendo que es una estructura de tipo FIFO, donde el primer elemento que ingresa es el primero que se quita. Definir los siguientes métodos:
