@@ -22,6 +22,7 @@ class LinkedList {
     this.head = null;
     this._length = 0;
   }
+
   add(value) {
     const newNode = new Node(value);
     if (!this.head) {
@@ -61,14 +62,8 @@ class LinkedList {
     let current = this.head;
     while (current) {
       if (typeof searchTerm === 'function') {
-        if (searchTerm(current.value)) {
-          return current.value;
-        }
-      } else {
-        if (searchTerm === current.value) {
-          return current.value;
-        }
-      }
+        if (searchTerm(current.value)) return current.value;
+      } else if (searchTerm === current.value) return current.value;
       current = current.next;
     }
     return null;
@@ -88,9 +83,10 @@ La clase debe tener los siguientes métodos:
 
 Ejemplo: supongamos que quiero guardar {instructora: 'Ani'} en la tabla. Primero puedo chequear, con hasKey, si ya hay algo en la tabla con el nombre 'instructora'; luego, invocando set('instructora', 'Ani'), se almacenará el par clave-valor en un bucket específico (determinado al hashear la clave)
 */
+
 class HashTable {
-  constructor() {
-    this.numBuckets = 35;
+  constructor(numBuckets = 35) {
+    this.numBuckets = numBuckets;
     this.buckets = Array.from({length: this.numBuckets}, () => []);
   }
 
