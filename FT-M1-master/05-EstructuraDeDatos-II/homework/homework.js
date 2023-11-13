@@ -12,61 +12,61 @@ Implementar la clase LinkedList, definiendo los siguientes métodos:
 */
 class Node {
   constructor(value, next = null) {
-    this.value = value;
-    this.next = next;
+    this.value = value; // Establece el valor del nodo.
+    this.next = next; // Establece el siguiente nodo en la lista enlazada, por defecto es null.
   }
 }
 
 class LinkedList {
   constructor() {
-    this.head = null;
-    this._length = 0;
+    this.head = null; // Inicializa la cabeza de la lista enlazada como null, lo que indica que la lista está vacía al principio.
+    this._length = 0; // Inicializa un contador de longitud para rastrear el número de nodos en la lista.
   }
 
   add(value) {
-    const newNode = new Node(value);
+    const newNode = new Node(value); // Crea un nuevo nodo con el valor proporcionado.
     if (!this.head) {
-      this.head = newNode;
+      this.head = newNode; // Si la lista está vacía, establece el nuevo nodo como la cabeza de la lista.
     } else {
-      let current = this.head;
+      let current = this.head; // Inicia un recorrido desde la cabeza de la lista.
       while (current.next) {
-        current = current.next;
+        current = current.next; // Recorre la lista hasta encontrar el último nodo.
       }
-      current.next = newNode;
+      current.next = newNode; // Enlaza el último nodo con el nuevo nodo.
     }
-    this._length++;
+    this._length++; // Incrementa la longitud de la lista.
   }
 
   remove() {
-    if (!this.head) return null;
+    if (!this.head) return null; // Si la lista está vacía, retorna null.
 
     if (this.head.next === null) {
-      const value = this.head.value;
-      this.head = null;
-      this._length = 0;
-      return value;
+      const value = this.head.value; // Si hay solo un nodo, guarda su valor.
+      this.head = null; // Establece la cabeza de la lista como null.
+      this._length = 0; // Establece la longitud de la lista a 0.
+      return value; // Retorna el valor del nodo removido.
     }
 
-    let current = this.head;
-    let prev = null;
+    let current = this.head; // Inicia un recorrido desde la cabeza.
+    let prev = null; // Almacena el nodo anterior durante el recorrido.
     while (current.next) {
-      prev = current;
-      current = current.next;
+      prev = current; // Actualiza el nodo anterior.
+      current = current.next; // Avanza al siguiente nodo.
     }
-    prev.next = null;
-    this._length--;
-    return current.value;
+    prev.next = null; // Elimina la referencia al último nodo.
+    this._length--; // Decrementa la longitud de la lista.
+    return current.value; // Retorna el valor del nodo removido.
   }
 
   search(searchTerm) {
-    let current = this.head;
+    let current = this.head; // Inicia un recorrido desde la cabeza de la lista.
     while (current) {
       if (typeof searchTerm === 'function') {
-        if (searchTerm(current.value)) return current.value;
-      } else if (searchTerm === current.value) return current.value;
-      current = current.next;
+        if (searchTerm(current.value)) return current.value; // Si el término de búsqueda es una función, la aplica al valor del nodo actual.
+      } else if (searchTerm === current.value) return current.value; // Si el término de búsqueda es igual al valor del nodo actual, retorna ese valor.
+      current = current.next; // Avanza al siguiente nodo.
     }
-    return null;
+    return null; // Si no encuentra el término de búsqueda, retorna null.
   }
 }
 
@@ -86,55 +86,62 @@ Ejemplo: supongamos que quiero guardar {instructora: 'Ani'} en la tabla. Primero
 
 class HashTable {
   constructor(numBuckets = 35) {
-    this.numBuckets = numBuckets;
-    this.buckets = Array.from({length: this.numBuckets}, () => []);
+    this.numBuckets = numBuckets; // Establece el número de buckets (espacios) en la tabla hash. Si no se proporciona, por defecto son 35.
+    this.buckets = Array.from({length: this.numBuckets}, () => []); // Crea un array de arrays. Cada sub-array representa un bucket en la tabla hash.
   }
 
   hash(key) {
-    let sum = 0;
+    let sum = 0; // Inicializa una suma en 0.
     for (let i = 0; i < key.length; i++) {
-      sum += key.charCodeAt(i);
+      sum += key.charCodeAt(i); // Suma los códigos de carácter ASCII de cada carácter de la clave.
     }
-    return sum % this.numBuckets;
+    return sum % this.numBuckets; // Retorna el residuo de la suma dividida por el número de buckets, determinando así la posición del bucket para la clave.
   }
 
   set(key, value) {
     if (typeof key !== 'string') {
-      throw new TypeError('Keys must be strings');
+      throw new TypeError('Keys must be strings'); // Lanza un error si la clave no es una cadena.
     }
-    const index = this.hash(key);
-    const bucket = this.buckets[index];
+    const index = this.hash(key); // Calcula el índice del bucket para la clave.
+    const bucket = this.buckets[index]; // Obtiene el bucket correspondiente al índice.
     for (let i = 0; i < bucket.length; i++) {
       if (bucket[i][0] === key) {
-        bucket[i][1] = value;
+        bucket[i][1] = value; // Si la clave ya existe en el bucket, actualiza su valor.
         return;
       }
     }
-    bucket.push([key, value]);
+    bucket.push([key, value]); // Si la clave no existe, agrega un nuevo par clave-valor al bucket.
   }
 
   get(key) {
-    const index = this.hash(key);
-    const bucket = this.buckets[index];
+    const index = this.hash(key); // Calcula el índice del bucket para la clave.
+    const bucket = this.buckets[index]; // Obtiene el bucket correspondiente al índice.
     for (let i = 0; i < bucket.length; i++) {
       if (bucket[i][0] === key) {
-        return bucket[i][1];
+        return bucket[i][1]; // Si encuentra la clave, retorna su valor.
       }
     }
-    return null;
+    return null; // Si la clave no se encuentra, retorna null.
   }
 
   hasKey(key) {
-    const index = this.hash(key);
-    const bucket = this.buckets[index];
+    const index = this.hash(key); // Calcula el índice del bucket para la clave.
+    const bucket = this.buckets[index]; // Obtiene el bucket correspondiente al índice.
     for (let i = 0; i < bucket.length; i++) {
       if (bucket[i][0] === key) {
-        return true;
+        return true; // Si encuentra la clave, retorna verdadero.
       }
     }
-    return false;
+    return false; // Si la clave no se encuentra, retorna falso.
   }
 }
+
+/* const HashTbl = new HashTable();
+
+console.log(HashTbl.hash('hola!'));
+console.log(HashTbl.set('hola!', 33));
+console.log(HashTbl.get('hola!'));
+console.log(HashTbl.hasKey('hola!')); */
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
