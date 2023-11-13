@@ -63,9 +63,15 @@ class Queue {
   constructor() {
     this.arr = [];
   }
-  enqueue = e => this.arr.push(e);
-  dequeue = () => this.arr.shift();
-  size = () => this.arr.length;
+  enqueue(e) {
+    this.arr.push(e);
+  }
+  dequeue() {
+    return this.arr.shift();
+  }
+  size() {
+    return this.arr.length;
+  }
 }
 
 /* function Queue() {
