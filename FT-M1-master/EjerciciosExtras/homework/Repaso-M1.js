@@ -47,35 +47,22 @@ function countArray(array, sum = 0) {
 // dentro de a tenemos 3 propiedades mas, luego a3 tiene otras 3 y por ultimo c tiene una extra.
 // Propiedades: a, a1, a2, a3, f, a, c, o, b, c --> 10 en total
 
-function countProps(obj) {
-  let acc = Object.keys(obj).length;
-
+/* function countProps(obj, acc = Object.keys(obj).length) {
   Object.keys(obj).forEach(key => {
     if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
       acc += countProps(obj[key]);
     }
   });
-
   return acc;
-}
-
-/* function countProps(obj) {
-  let count = 0;
-
-  for (let key in obj) {
-    // Comprobar si la propiedad es directamente parte del objeto
-    if (obj.hasOwnProperty(key)) {
-      count++;
-
-      // Si el valor es un objeto y no un array, hacer una llamada recursiva
-      if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
-        count += countProps(obj[key]);
-      }
-    }
-  }
-
-  return count;
 } */
+
+function countProps(obj, count = 0) {
+  for (let key in obj) {
+    count++;
+    if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) count += countProps(obj[key]);
+  }
+  return count;
+}
 
 // Implementar el método changeNotNumbers dentro del prototype de LinkedList que deberá cambiar
 // aquellos valores que no puedan castearse a números por 'Kiricocho' y devolver la cantidad de cambios que hizo
