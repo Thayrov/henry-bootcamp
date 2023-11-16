@@ -72,15 +72,12 @@ function countProps(obj, count = 0) {
 //    lista.changeNotNumbers();
 //    Ahora la lista quedaría: Head --> [1] --> ['2'] --> [false] --> ['Kirikocho] y la función debería haber devuelto el valor 1
 
-LinkedList.prototype.changeNotNumbers = function (total = 0, current = this.head) {
-  while (current) {
-    if (isNaN(Number(current.value))) {
-      total++;
-      current.value = 'Kiricocho';
-    }
-    current = current.next;
+LinkedList.prototype.changeNotNumbers = function (acc = 0, curr = this.head) {
+  while (curr) {
+    if (isNaN(curr.value)) acc++, (curr.value = 'Kiricocho');
+    curr = curr.next;
   }
-  return total;
+  return acc;
 };
 
 // Implementar la función mergeQueues que a partir de dos queues recibidas por parámetro
@@ -91,20 +88,11 @@ LinkedList.prototype.changeNotNumbers = function (total = 0, current = this.head
 // mergeQueues(queueOne, queueTwo) --> [7,2,3,4,5,6]
 // IMPORTANTE: NO son arreglos sino que son Queues.
 
-function mergeQueues(queueOne, queueTwo) {
-  let queue = new Queue();
-
+function mergeQueues(queueOne, queueTwo, queue = new Queue()) {
   while (queueOne.size() || queueTwo.size()) {
-    if (queueOne.size()) {
-      let firstElement = queueOne.dequeue();
-      queue.enqueue(firstElement);
-    }
-    if (queueTwo.size()) {
-      let secondElement = queueTwo.dequeue();
-      queue.enqueue(secondElement);
-    }
+    if (queueOne.size()) queue.enqueue(queueOne.dequeue());
+    if (queueTwo.size()) queue.enqueue(queueTwo.dequeue());
   }
-
   return queue;
 }
 
