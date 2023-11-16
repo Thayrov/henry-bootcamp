@@ -23,10 +23,10 @@ const {Queue, Node, LinkedList, BinarySearchTree} = require('./DS.js');
   return Arr.reduce((a, b) => a + b);
 }; */
 
-function countArray(array, sum = 0) {
+const countArray = (array, sum = 0) => {
   for (let elem of array) Array.isArray(elem) ? (sum += countArray(elem)) : (sum += elem);
   return sum;
-}
+};
 
 // const countArray = array => array.flat(Infinity).reduce((a, b) => a + b);
 
@@ -56,13 +56,13 @@ function countArray(array, sum = 0) {
   return acc;
 } */
 
-function countProps(obj, count = 0) {
+const countProps = (obj, count = 0) => {
   for (let key in obj) {
     count++;
     if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) count += countProps(obj[key]);
   }
   return count;
-}
+};
 
 // Implementar el método changeNotNumbers dentro del prototype de LinkedList que deberá cambiar
 // aquellos valores que no puedan castearse a números por 'Kiricocho' y devolver la cantidad de cambios que hizo
@@ -74,7 +74,7 @@ function countProps(obj, count = 0) {
 
 LinkedList.prototype.changeNotNumbers = function (acc = 0, curr = this.head) {
   while (curr) {
-    if (isNaN(curr.value)) acc++, (curr.value = 'Kiricocho');
+    isNaN(curr.value) && (acc++, (curr.value = 'Kiricocho'));
     curr = curr.next;
   }
   return acc;
@@ -88,13 +88,13 @@ LinkedList.prototype.changeNotNumbers = function (acc = 0, curr = this.head) {
 // mergeQueues(queueOne, queueTwo) --> [7,2,3,4,5,6]
 // IMPORTANTE: NO son arreglos sino que son Queues.
 
-function mergeQueues(queueOne, queueTwo, queueRes = new Queue()) {
+const mergeQueues = (queueOne, queueTwo, queueRes = new Queue()) => {
   while (queueOne.size() || queueTwo.size()) {
-    if (queueOne.size()) queueRes.enqueue(queueOne.dequeue());
-    if (queueTwo.size()) queueRes.enqueue(queueTwo.dequeue());
+    queueOne.size() && queueRes.enqueue(queueOne.dequeue());
+    queueTwo.size() && queueRes.enqueue(queueTwo.dequeue());
   }
   return queueRes;
-}
+};
 
 // Implementar la función closureMult que permita generar nuevas funciones que representen
 // las tablas de multiplicación de distintos números
@@ -105,13 +105,13 @@ function mergeQueues(queueOne, queueTwo, queueRes = new Queue()) {
 // - var multBySix = closureMult(6);
 // - multBySix(4) --> 24
 
-let closureMult = multiplier => multiplierB => multiplier * multiplierB;
+const closureMult = multiplier => num => multiplier * num;
 
 // Implementar el método sum dentro del prototype de BinarySearchTree
 // que debe retornar la suma total de los valores dentro de cada nodo del árbol
 BinarySearchTree.prototype.sum = function (sum = 0) {
-  if (this.left) sum += this.left.sum();
-  if (this.right) sum += this.right.sum();
+  this.left && (sum += this.left.sum());
+  this.right && (sum += this.right.sum());
   return sum + this.value;
 };
 
