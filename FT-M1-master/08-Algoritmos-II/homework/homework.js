@@ -44,8 +44,8 @@
   // Devolver el array ordenado
   return array;
 } */
-console.time('quickSort');
-function quickSort(array) {
+
+/* function quickSort(array) {
   function quickSortRecursive(start, end) {
     function partition(left, right, pivotIndex) {
       if (left >= right) {
@@ -71,9 +71,26 @@ function quickSort(array) {
   quickSortRecursive(0, array.length - 1);
 
   return array;
+} */
+/* function quickSort(array) {
+  if (array.length <= 1) return array;
+  let [pivot, ...rest] = array;
+  let left = rest.filter(elem => elem <= pivot);
+  let right = rest.filter(elem => elem > pivot);
+  return [...quickSort(left), pivot, ...quickSort(right)];
+} */
+
+function quickSort(array) {
+  if (array.length <= 1) return array;
+  var pivot = array.shift();
+  var izq = [];
+  var der = [];
+  for (let i = 0; i < array.length; i++) {
+    array[i] < pivot ? izq.push(array[i]) : der.push(array[i]);
+  }
+  return quickSort(izq).concat(pivot).concat(quickSort(der));
 }
-console.log(quickSort([5, 1, 4, 2, 8]));
-console.timeEnd('quickSort');
+
 // Implementar el método conocido como mergeSort para ordenar de menor a mayor
 // el array recibido como parámetro
 // Devolver el array ordenado resultante
@@ -110,21 +127,15 @@ console.timeEnd('quickSort');
   // Ordenar recursivamente cada mitad y fusionarlas
   return merge(mergeSort(left), mergeSort(right));
 } */
-console.time('mergeSort');
+
 function mergeSort(array) {
-  if (array.length <= 1) {
-    return array;
-  }
+  if (array.length <= 1) return array;
   const middle = Math.floor(array.length / 2);
   const left = array.slice(0, middle);
   const right = array.slice(middle);
   function merge(left, right) {
-    if (!left.length) {
-      return right;
-    }
-    if (!right.length) {
-      return left;
-    }
+    if (!left.length) return right;
+    if (!right.length) return left;
 
     if (left[0] < right[0]) {
       return [left[0]].concat(merge(left.slice(1), right));
@@ -134,8 +145,7 @@ function mergeSort(array) {
   }
   return merge(mergeSort(left), mergeSort(right));
 }
-console.log(mergeSort([5, 1, 4, 2, 8]));
-console.timeEnd('mergeSort');
+
 // Alternativas iterativas:
 
 /* function quickSortIterative(arr) {
@@ -208,7 +218,6 @@ function partition(arr, start, end) {
   return pivotIndex;
 }
 
-console.time('quickSortIterative');
 function quickSortIterative(arr) {
   let stack = [];
 
@@ -233,10 +242,7 @@ function quickSortIterative(arr) {
   }
   return arr;
 }
-console.log(quickSortIterative([5, 1, 4, 2, 8]));
-console.timeEnd('quickSortIterative');
 
-console.time('mergeSortIterative');
 function mergeSortIterative(array) {
   if (array.length <= 1) {
     return array;
@@ -260,8 +266,6 @@ function mergeSortIterative(array) {
 
   return subarrays[0];
 }
-console.log(mergeSortIterative([5, 1, 4, 2, 8]));
-console.timeEnd('mergeSortIterative');
 
 // Función de partición utilizada por QuickSort
 /* function partition(arr, start, end) {
@@ -358,7 +362,6 @@ const InsertionSort = (array, left, right) => {
   }
 };
 
-console.time('Timsort');
 const Timsort = array => {
   // Default size of a partition
   const RUN = 32;
@@ -376,8 +379,6 @@ const Timsort = array => {
   }
   return array;
 };
-console.log(Timsort([5, 1, 4, 2, 8]));
-console.timeEnd('Timsort');
 
 // No modificar nada debajo de esta línea
 // --------------------------------
