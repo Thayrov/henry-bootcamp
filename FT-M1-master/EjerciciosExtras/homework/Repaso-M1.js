@@ -88,12 +88,12 @@ LinkedList.prototype.changeNotNumbers = function (acc = 0, curr = this.head) {
 // mergeQueues(queueOne, queueTwo) --> [7,2,3,4,5,6]
 // IMPORTANTE: NO son arreglos sino que son Queues.
 
-function mergeQueues(queueOne, queueTwo, queue = new Queue()) {
+function mergeQueues(queueOne, queueTwo, queueRes = new Queue()) {
   while (queueOne.size() || queueTwo.size()) {
-    if (queueOne.size()) queue.enqueue(queueOne.dequeue());
-    if (queueTwo.size()) queue.enqueue(queueTwo.dequeue());
+    if (queueOne.size()) queueRes.enqueue(queueOne.dequeue());
+    if (queueTwo.size()) queueRes.enqueue(queueTwo.dequeue());
   }
-  return queue;
+  return queueRes;
 }
 
 // Implementar la función closureMult que permita generar nuevas funciones que representen
