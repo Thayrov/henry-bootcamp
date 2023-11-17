@@ -25,8 +25,8 @@
 
 const casasPorAño = n => {
   if (n < 0) return false;
-  if (n === 0) return (n = 0);
-  if (n === 1) return (n = 30);
+  if (n === 0) return 0;
+  if (n === 1) return 30;
   if (n > 1) return casasPorAño(n - 1) + 30;
 };
 
