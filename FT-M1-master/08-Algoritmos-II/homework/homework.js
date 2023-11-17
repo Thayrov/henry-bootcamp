@@ -72,24 +72,35 @@
 
   return array;
 } */
-/* function quickSort(array) {
-  if (array.length <= 1) return array;
-  let [pivot, ...rest] = array;
+/* const quickSort = arr => {
+  if (arr.length <= 1) return arr;
+  const [pivot, ...rest] = arr;
   let left = rest.filter(elem => elem <= pivot);
   let right = rest.filter(elem => elem > pivot);
-  return [...quickSort(left), pivot, ...quickSort(right)];
-} */
+  return [...quickSort2(left), pivot, ...quickSort2(right)];
+};
 
-function quickSort(array) {
-  if (array.length <= 1) return array;
-  var pivot = array.shift();
-  var izq = [];
-  var der = [];
-  for (let i = 0; i < array.length; i++) {
-    array[i] < pivot ? izq.push(array[i]) : der.push(array[i]);
+const quickSort = arr => {
+  if (arr.length <= 1) return arr;
+  let pivot = arr.shift(),
+    left = [],
+    right = [];
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] < pivot ? left.push(arr[i]) : right.push(arr[i]);
   }
-  return quickSort(izq).concat(pivot).concat(quickSort(der));
-}
+  return [...quickSort(left), pivot, ...quickSort(right)];
+}; */
+
+const quickSort = arr => {
+  if (arr.length <= 1) return arr;
+  const [pivot, ...rest] = arr;
+  const left = [];
+  const right = [];
+  for (const elem of rest) {
+    elem < pivot ? left.push(elem) : right.push(elem);
+  }
+  return [...quickSort(left), pivot, ...quickSort(right)];
+};
 
 // Implementar el método conocido como mergeSort para ordenar de menor a mayor
 // el array recibido como parámetro
@@ -181,7 +192,9 @@ function mergeSort(array) {
   return arr;
 } */
 
-function mergeI(left, right) {
+// Métodos iterativos
+
+/* function mergeI(left, right) {
   let result = [];
   let leftIndex = 0;
   let rightIndex = 0;
@@ -265,7 +278,7 @@ function mergeSortIterative(array) {
   }
 
   return subarrays[0];
-}
+} */
 
 // Función de partición utilizada por QuickSort
 /* function partition(arr, start, end) {
@@ -320,7 +333,9 @@ function mergeSortIterative(array) {
   return subarrays[0];
 } */
 
-const Merge = (array, left, mid, right) => {
+// TimSort
+
+/* const Merge = (array, left, mid, right) => {
   if (mid >= right) return;
   const len1 = mid - left + 1;
   const len2 = right - mid;
@@ -379,7 +394,7 @@ const Timsort = array => {
   }
   return array;
 };
-
+ */
 // No modificar nada debajo de esta línea
 // --------------------------------
 

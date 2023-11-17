@@ -1,0 +1,58 @@
+const LinkedList = require('../checkpoint/07');
+
+describe('LinkedList.encontrarPeliculas()', () => {
+   it('Debe retornar una nueva lista con los valores que coincidan con el parámetro', () => {
+      const lista1 = new LinkedList();
+      const lista2 = new LinkedList();
+      lista1.add(2);
+      lista1.add(4);
+      lista1.add(6);
+      lista1.add(7);
+      lista1.add(3);
+      lista1.add(3);
+      lista1.add(4);
+      lista1.add(1);
+      const peliculasEncontradas = lista1.encontrarPeliculas(3);
+      expect(peliculasEncontradas).toBeInstanceOf(LinkedList);
+      expect(peliculasEncontradas.head.value).toEqual(3);
+      expect(peliculasEncontradas.head.next.value).toEqual(3);
+      const peliculasEncontradas2 = lista1.encontrarPeliculas(4);
+      expect(peliculasEncontradas2.head.value).toEqual(4);
+      expect(peliculasEncontradas2.head.next.value).toEqual(4);
+      lista2.add(5);
+      lista2.add(21);
+      lista2.add(5);
+      lista2.add(5);
+      lista2.add(21);
+      lista2.add(5);
+      lista2.add(5);
+      lista2.add(1);
+      const peliculasEncontradas3 = lista2.encontrarPeliculas(5);
+      expect(peliculasEncontradas3.head.value).toEqual(5);
+      expect(peliculasEncontradas3.head.next.value).toEqual(5);
+      expect(peliculasEncontradas3.head.next.next.value).toEqual(5);
+      expect(peliculasEncontradas3.head.next.next.next.value).toEqual(5);
+      expect(peliculasEncontradas3.head.next.next.next.next.value).toEqual(5);
+      const peliculasEncontradas4 = lista2.encontrarPeliculas(21);
+      expect(peliculasEncontradas4.head.value).toEqual(21);
+      expect(peliculasEncontradas4.head.next.value).toEqual(21);
+   });
+   it('Debe retornar false si no se encontraron valores que coincidan con el número recibido por parámetro', () => {
+      const lista1 = new LinkedList();
+      const lista2 = new LinkedList();
+      lista1.add(1);
+      const peliculasEncontradas = lista1.encontrarPeliculas(2);
+      expect(peliculasEncontradas).toEqual(false);
+      lista2.add(3);
+      lista2.add(4);
+      lista2.add(1);
+      lista2.add(6);
+      lista2.add(33);
+      lista2.add(7);
+      lista2.add(8);
+      const peliculasEncontradas2 = lista2.encontrarPeliculas(13);
+      expect(peliculasEncontradas2).toEqual(false);
+      const peliculasEncontradas3 = lista2.encontrarPeliculas(5);
+      expect(peliculasEncontradas3).toEqual(false);
+   });
+});
