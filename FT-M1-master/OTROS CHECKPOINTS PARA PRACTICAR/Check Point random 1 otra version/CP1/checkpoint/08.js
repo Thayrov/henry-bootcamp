@@ -1,17 +1,17 @@
-const { LinkedList } = require("../DS");
+const {LinkedList} = require('../DS');
 // ⚠️ NO MODIFICAR NADA POR ENCIMA DE ESTA LÍNEA ⚠️
 //
-// 8️⃣ ***** EJERCICIO 8 ***** - LinkedList.sliceRooms() 8️⃣ 
-// 
+// 8️⃣ ***** EJERCICIO 8 ***** - LinkedList.sliceRooms() 8️⃣
+//
 // Agregar al prototype de LinkedList el método sliceRooms().
 // Este método también será similar al slice() de array, dónde a partir de 2 índices, deberás
 // particionar la lista de habitaciones de una casa.
 //
-//⚠️ ATENCION ⚠️
+//⚠️ ATENCIÓN ⚠️
 // - Documentación explicando Array.slice() --> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
 // - Los valores que sean iguales a los índices no deben ser incluidos
 // - Los indices siempre van a equivaler a un string con el nombre de una habitación
-// - Recorda que esta el metodo add() ya incluido en el prototype para agregar nuevos nodos y search() para buscar los existentes
+// - Recuerda que está el método add() ya incluido en el prototype para agregar nuevos nodos y search() para buscar los existentes
 //
 // EJEMPLOS:
 // Tenemos la siguiente lista:
@@ -27,26 +27,28 @@ const { LinkedList } = require("../DS");
 // Nota: el primer indice siempre sera menor al segundo.
 
 LinkedList.prototype.sliceRooms = function (firstIndex, secondIndex) {
-  // Tu código aquí:
-  let newList = new LinkedList(),
-    firstNode = this.search(firstIndex),
-    endNode = this.search(secondIndex),
-    current = this.head;
-  
-    if (!firstNode || !endNode) return false;
+  if (!this.search(firstIndex) || !this.search(secondIndex)) return false;
+  const newList = new LinkedList();
+  let node = this.head;
+  let adding = false;
 
-    while(current){
-      if(current.value === firstNode && current.next.value !== endNode) {        
-        newList.add(current.next.value);
-        firstNode = current.next.value;
-      }
-      current = current.next;
+  while (node !== null) {
+    if (node.value === firstIndex) {
+      adding = true;
+      node = node.next;
+      continue;
     }
-
-    return newList;  
-}
+    if (node.value === secondIndex) {
+      adding = false;
+      break;
+    }
+    adding && newList.add(node.value);
+    node = node.next;
+  }
+  return newList;
+};
 
 // ⚠️ NO MODIFICAR NADA POR DEBAJO DE ESTA LÍNEA ⚠️
 module.exports = {
-  LinkedList
+  LinkedList,
 };
