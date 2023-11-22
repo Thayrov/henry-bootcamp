@@ -16,10 +16,15 @@ document.querySelector('#createdBy').innerHTML += ' Thayrov';
 // 2) 'complete'    : debe setearse en false
 // Ayuda: usar 'this' en el constructor
 
-function ToDo(description) {
+class ToDo {
   // Tu código acá:
-  this.description = description;
-  this.complete = false;
+  constructor(description) {
+    this.description = description;
+    this.complete = false;
+  }
+  completeToDo() {
+    this.complete = !this.complete;
+  }
 }
 
 // Agregar un método denominado 'completeToDo' al prototipo de la clase ToDo
@@ -27,10 +32,6 @@ function ToDo(description) {
 // Debe setear el atributo 'complete' del ToDo en true
 
 // Tu código acá:
-
-ToDo.prototype.completeToDo = function () {
-  this.complete = !this.complete;
-};
 
 // Agregar dos parámetros a la función 'buildToDo':
 //    1) Un objeto de la clase ToDo
@@ -49,7 +50,7 @@ ToDo.prototype.completeToDo = function () {
 //    7) Agregar 'toDoText' como hijo de 'toDoShell'
 //    8) Devolver la variable toDoShell
 
-function buildToDo(todo, index) {
+const buildToDo = (todo, index) => {
   // Tu código acá:
   let toDoShell = document.createElement('div');
   let toDoText = document.createElement('span');
@@ -73,17 +74,15 @@ function buildToDo(todo, index) {
   toDoShell.appendChild(toDoText);
 
   return toDoShell;
-}
+};
 
 // La función 'buildToDos' debe crear un array de objetos toDo y devolverlo
 // Recibirá como parámetro un array de objetos ToDo
 // Utilizar el método map usando la función previamente creada ('buildToDo')
 // Devolver el nuevo array
+// Tu código acá:
 
-function buildToDos(toDos) {
-  // Tu código acá:
-  return toDos.map(buildToDo);
-}
+const buildToDos = toDos => toDos.map(buildToDo);
 
 // La función 'displayToDos' se va a encargar de que se vean los toDo's en pantalla
 //  1) Seleccionar el elemento cuyo id es 'toDoContainer' y almacenarlo en una variable denominada 'toDoContainer'
@@ -94,13 +93,13 @@ function buildToDos(toDos) {
 //     línea para hacer el llamado a esta función (displayToDos)
 //  6) Abrir o en el caso de ya tenerlo abierto, recargar, la página
 
-function displayToDos() {
+const displayToDos = () => {
   // Tu código acá:
   let toDoContainer = document.getElementById('toDoContainer');
   toDoContainer.innerHTML = '';
   let toDos = buildToDos(toDoItems);
   toDos.forEach(toDo => toDoContainer.appendChild(toDo));
-}
+};
 
 // La función 'addToDo' agregará un nuevo ToDo al array 'toDoItems'
 // [NOTA: Algunas cuestiones a tener en cuenta sobre el elemento 'input' de HTML (Ya que 'toDoInput' es un input)
@@ -111,14 +110,14 @@ function displayToDos() {
 //  3) Setear el valor del input toDoInput como un string vacío ("") (Esto se realiza para que en la vista se borre lo que se encontraba escrito)
 //  4) Llamar a la función displayToDos para que se actualicen los toDos mostrados en pantalla
 
-function addToDo() {
+const addToDo = () => {
   // Tu código acá:
   let input = document.getElementById('toDoInput');
   let newToDo = new ToDo(input.value);
   toDoItems.push(newToDo);
   input.value = '';
   displayToDos();
-}
+};
 
 // Agregar un 'Event Listener' para que cada vez que el botón 'AGREGAR' sea clickeado
 // se ejecute la función 'addToDo'
@@ -141,13 +140,13 @@ document.getElementById('addButton').addEventListener('click', addToDo);
 //   3) En la función 'buildToDo' agregar un 'click' event listener al elemento 'toDoText', pasándole
 //      esta función como callback
 
-function completeToDo(event) {
+const completeToDo = event => {
   // DESCOMENTAR LA SIGUIENTE LINEA
   const index = event.target.id;
   // Tu código acá:
   toDoItems[index].completeToDo();
   displayToDos();
-}
+};
 
 // Una vez que llegaste a este punto verifica que todos los tests pasen
 
