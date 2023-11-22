@@ -82,7 +82,7 @@ const buildToDo = (todo, index) => {
 // Devolver el nuevo array
 // Tu código acá:
 
-const buildToDos = toDos => toDos.map(buildToDo);
+const buildToDos = toDos => toDos.map((todo, i) => buildToDo(todo, i));
 
 // La función 'displayToDos' se va a encargar de que se vean los toDo's en pantalla
 //  1) Seleccionar el elemento cuyo id es 'toDoContainer' y almacenarlo en una variable denominada 'toDoContainer'
