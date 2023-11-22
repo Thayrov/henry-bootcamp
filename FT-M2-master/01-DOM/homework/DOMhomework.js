@@ -49,41 +49,27 @@ ToDo.prototype.completeToDo = function () {
 //    7) Agregar 'toDoText' como hijo de 'toDoShell'
 //    8) Devolver la variable toDoShell
 
-/*    Investiga sobre el tipo 'checkbox' del elemento input y realizar lo siguiente en la función 'buildToDo':
-        a) Crear un checkbox en la función 'buildToDo'
-        b) Asignarle como id a dicho checkbox el valor del index y quitar el id del index de toDoText
-        c) Agregarle al checkbox el 'click' event listener de completeToDo y quitarle el event listener a toDoText
-        d) Asignarle la clase 'completeCheckbox' al checkbox
-        e) Dentro del bloque 'if' de la función buildToDo, si es true, setear el atributo 'checked' en true en el checkbox
-        f) Agregar el checkbox sobre el elemento 'toDoShell'
-*/
 function buildToDo(todo, index) {
   // Tu código acá:
   let toDoShell = document.createElement('div');
-  toDoShell.className = 'toDoShell';
-
   let toDoText = document.createElement('span');
+  let toDoCheckbox = document.createElement('input');
+
+  toDoShell.className = 'toDoShell';
+  toDoCheckbox.className = 'completeCheckbox';
+
   toDoText.innerHTML = todo.description;
-  toDoText.id = index;
+  toDoCheckbox.type = 'checkbox';
+  toDoCheckbox.id = index;
 
-  toDoText.addEventListener('click', () => {
-    todo.completeToDo();
-    displayToDos();
-  });
+  toDoCheckbox.addEventListener('click', e => completeToDo(e));
 
-  if (todo.complete) toDoText.className = 'completeText';
+  if (todo.complete) {
+    toDoCheckbox.checked = true;
+    toDoText.className = 'completeText';
+  }
 
-  let checkbox = document.createElement('input');
-  checkbox.type = 'checkbox';
-  checkbox.id = index;
-  checkbox.addEventListener('click', () => {
-    todo.completeToDo();
-    displayToDos();
-  });
-  if (todo.complete) checkbox.checked = true;
-  checkbox.className = 'completeCheckbox';
-
-  toDoShell.appendChild(checkbox);
+  toDoShell.appendChild(toDoCheckbox);
   toDoShell.appendChild(toDoText);
 
   return toDoShell;
@@ -127,9 +113,10 @@ function displayToDos() {
 
 function addToDo() {
   // Tu código acá:
-  let newToDo = new ToDo(toDoInput.value);
+  let input = document.getElementById('toDoInput');
+  let newToDo = new ToDo(input.value);
   toDoItems.push(newToDo);
-  toDoInput.value = '';
+  input.value = '';
   displayToDos();
 }
 
@@ -158,7 +145,8 @@ function completeToDo(event) {
   // DESCOMENTAR LA SIGUIENTE LINEA
   const index = event.target.id;
   // Tu código acá:
-  toDoItems[index].completeToDo() && displayToDos();
+  toDoItems[index].completeToDo();
+  displayToDos();
 }
 
 // Una vez que llegaste a este punto verifica que todos los tests pasen
