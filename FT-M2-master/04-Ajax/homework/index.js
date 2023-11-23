@@ -16,14 +16,15 @@ $('#search').click(() => {
   });
 });
 
+//
 $('#delete').click(() => {
   let id = $('#inputDelete').val();
+  let amigo = $.get('http://localhost:5000/amigos/' + id);
   $.ajax({
     url: 'http://localhost:5000/amigos/' + id,
     type: 'DELETE',
     success: () => {
-      $('#success').empty();
-      $('#success').text('Tu amigo fue borrado con éxito!');
+      $('#success').text(`${amigo.responseJSON.name} fue borrado con éxito!`);
     },
   });
 });
