@@ -1,19 +1,30 @@
 const traverseDomAndCollectElements = (matchFunc, startEl) => {
   let resultSet = [];
-
   if (typeof startEl === 'undefined') startEl = document.body;
-
-  // Si el elemento actual coincide, se añade al resultSet
   if (matchFunc(startEl)) resultSet.push(startEl);
-
-  // Recorrer cada hijo del elemento actual
   Array.from(startEl.children).forEach(childEl => {
     let childResults = traverseDomAndCollectElements(matchFunc, childEl);
-    resultSet = resultSet.concat(childResults);
+    resultSet = [...resultSet, ...childResults];
   });
-
   return resultSet;
 };
+
+/* const traverseDomAndCollectElements = (matchFunc, startEl) => {
+  let resultSet = [];
+  if (typeof startEl === 'undefined') {
+    startEl = document.body;
+    if (matchFunc(startEl)) resultSet.push(startEl);
+  }
+  let i = startEl.children.length - 1;
+  while (i >= 0) {
+    let current = startEl.children[i];
+    if (matchFunc(current)) resultSet.push(current);
+    let childResults = traverseDomAndCollectElements(matchFunc, current);
+    resultSet = [...resultSet, ...childResults];
+    i--;
+  }
+  return resultSet;
+}; */
 
 // Detecta y devuelve el tipo de selector
 // devuelve uno de estos tipos: id, class, tag.class, tag
