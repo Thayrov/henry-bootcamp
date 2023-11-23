@@ -36,13 +36,9 @@ const matchFunctionMaker = selector => {
   let selectorType = selectorTypeMatcher(selector);
   let matchFunction;
 
-  if (selectorType === 'id') {
-    matchFunction = el => '#' + el.id === selector;
-  }
+  if (selectorType === 'id') matchFunction = el => el.id === selector.slice(1);
 
-  if (selectorType === 'class') {
-    matchFunction = el => el.classList.contains(selector.slice(1));
-  }
+  if (selectorType === 'class') matchFunction = el => el.classList.contains(selector.slice(1));
 
   if (selectorType === 'tag.class') {
     let parts = selector.split('.');
@@ -50,14 +46,8 @@ const matchFunctionMaker = selector => {
       el.tagName.toLowerCase() === parts[0].toLowerCase() && el.classList.contains(parts[1]);
   }
 
-  /*   if (selectorType === 'tag') {
+  if (selectorType === 'tag')
     matchFunction = el => el.tagName.toLowerCase() === selector.toLowerCase();
-  } */
-
-  if (selectorType === 'tag') {
-    matchFunction = el =>
-      el instanceof Element && el.tagName.toLowerCase() === selector.toLowerCase();
-  }
 
   if (selectorType === 'child') {
     let parts = selector.split('>').map(s => s.trim());
