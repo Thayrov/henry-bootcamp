@@ -33,7 +33,7 @@ io.on('connection', function (socket) {
     inMemoryDrawHistory.push({
       start: start,
       end: end,
-      color: color
+      color: color,
     });
     socket.broadcast.emit('draw', start, end, color);
   });
@@ -42,4 +42,3 @@ io.on('connection', function (socket) {
     console.log('Goodbye, ', socket.id, ' :(');
   });
 });
-
