@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-class Botones extends React.Component {
+class Botones extends Component {
   render() {
     const {alerts} = this.props;
 
