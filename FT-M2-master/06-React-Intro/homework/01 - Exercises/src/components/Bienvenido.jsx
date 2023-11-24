@@ -1,13 +1,25 @@
-import React from "react";
+import React from 'react';
+import Botones from './Botones';
 
-const studentName = "";
-const techSkills = ["Html", "Css", "JavaScript", "React", "Redux"];
-const alerts = { m1: "Aprobado", m2: "En curso" };
+const studentName = 'Thay';
+const techSkills = ['Html', 'Css', 'JavaScript', 'React', 'Redux'];
+const alerts = {m1: 'Aprobado', m2: 'En curso'};
 
 export default function Bienvenido() {
   // el código de tu componente acá
-  return;
+  return (
+    <div>
+      <h1>HM React</h1>
+      <h3>{studentName}</h3>
+      <ul>
+        {techSkills.map((techSkill, index) => (
+          <li key={index}>{techSkill}</li>
+        ))}
+      </ul>
+      <Botones alerts={alerts} />
+    </div>
+  );
 }
 
 // Esto lo exportamos para los tests
-export { studentName, techSkills, alerts };
+export {studentName, techSkills, alerts};
