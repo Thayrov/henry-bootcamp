@@ -1,1 +1,32 @@
 // Mixins acá
+.flex-gap(@gap) {
+  display: flex;
+  gap: @gap;
+}
+.image-mix(@w, @h, @br) {
+  width: @w;
+  height: @h;
+  border-radius: @br;
+}
+.btn-mix(@w, @h, @bg, @pd) {
+  width: @w;
+  height: @h;
+  background-color: @bg;
+  padding: @pd;
+  color: #dfe3e9;
+  border: 1px solid @bg;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 300;
+  cursor: pointer;
+  @media @phone {
+    width: 100%;
+  }
+}
+
+.phone-font-size(@size) {
+  @media @phone {
+    font-size: @size;
+  }
+}

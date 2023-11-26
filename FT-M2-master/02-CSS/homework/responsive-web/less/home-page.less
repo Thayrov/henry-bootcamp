@@ -1,4 +1,4 @@
-// Conteindo del Home
+// Contenido del Home
 
 .home {
   .intro {
@@ -9,6 +9,13 @@
     p {
       padding: 0 15px;
     }
+    img {
+      .image-mix(100%, auto, 20px);
+      margin-top: 100px;
+      @media @phone {
+        padding: 15px;
+      }
+    }
   }
 
   .music-images {
@@ -17,10 +24,19 @@
     width: 100%;
 
     img {
-      width: 28%;
       margin: 20px 2.5%;
-      border-radius: 20px;
-      height: 100%;
+      .image-mix(28%, 100%, 20px);
+    }
+    .tecnologia,
+    .ondas {
+      @media @phone {
+        display: none;
+      }
+    }
+    .auricular {
+      @media @phone {
+        width: 100%;
+      }
     }
   }
 
@@ -42,7 +58,12 @@
     padding: 50px 60px;
     display: flex;
     justify-content: center;
-
+    @media @phone {
+      flex-direction: column;
+      padding: 15px;
+      align-items: center;
+      gap: 15px;
+    }
     .actual-text {
       width: 50%;
 
@@ -55,17 +76,24 @@
       }
 
       .btn {
+        .btn-mix(105px, 40px, #1d2537, 9px);
+      }
+      @media @phone {
+        width: 100%;
+        order: 2;
       }
     }
 
     .actual-img {
       width: 46%;
       margin-left: 4%;
-
-      img {
+      @media @phone {
         width: 100%;
-        height: auto;
-        border-radius: 10px;
+        order: 1;
+        margin-left: 0;
+      }
+      img {
+        .image-mix(100%, auto, 10px);
       }
     }
   }
