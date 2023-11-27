@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Animals from '../Animals/Animals';
 import Species from '../Species/Species';
-import styledZoo from './Zoo.module.css';
+// import styledZoo from './Zoo.module.css';
 
 export default function Zoo() {
   const [zoo, setZoo] = React.useState({
@@ -23,7 +23,7 @@ export default function Zoo() {
         }),
       )
       .catch(error => console.log(error));
-  });
+  }, []);
 
   const handleSpecies = e => {};
   const handleAllSpecies = () => {};
@@ -41,7 +41,7 @@ export default function Zoo() {
         handleAllSpecies={handleAllSpecies}
       />
 
-      <Animals animals={zoo.animals} />
+      <Animals propAnimals={zoo.animals} />
     </div>
   );
 }
