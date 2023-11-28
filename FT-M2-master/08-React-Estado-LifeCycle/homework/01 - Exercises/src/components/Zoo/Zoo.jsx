@@ -29,7 +29,7 @@ export default function Zoo() {
   const handleSpecies = e => {
     setZoo({
       ...zoo,
-      animals: zoo.animals.filter(animal => animal.specie === e.target.value),
+      animals: zoo.allAnimals.filter(animal => animal.specie === e.target.value),
     });
   };
   const handleAllSpecies = () => {
