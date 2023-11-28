@@ -1,7 +1,7 @@
 import React from 'react';
 import Animals from '../Animals/Animals';
 import Species from '../Species/Species';
-// import styledZoo from './Zoo.module.css';
+import styledZoo from './Zoo.module.css';
 
 export default function Zoo() {
   const [zoo, setZoo] = React.useState({
@@ -23,17 +23,25 @@ export default function Zoo() {
         }),
       )
       .catch(error => console.log(error));
+    // eslint-disable-next-line
   }, []);
 
-  const handleSpecies = e => {};
-  const handleAllSpecies = () => {};
+  const handleSpecies = e => {
+    setZoo({
+      ...zoo,
+      animals: zoo.animals.filter(animal => animal.specie === e.target.value),
+    });
+  };
+  const handleAllSpecies = () => {
+    setZoo({...zoo, animals: zoo.allAnimals});
+  };
 
   const handleInputChange = e => setZoo({...zoo, zooName: e.target.value});
   return (
-    <div>
+    <div className={`${styledZoo.divContent} ${styledZoo.divContentTitle}`}>
       <label>Zoo Name:</label>
       <input type='text' value={zoo.zooName} onChange={handleInputChange} />
-      <h1>{zoo.zooName}</h1>
+      <h1 className={styledZoo.title}>{zoo.zooName}</h1>
 
       <Species
         species={zoo.species}
@@ -41,7 +49,7 @@ export default function Zoo() {
         handleAllSpecies={handleAllSpecies}
       />
 
-      <Animals propAnimals={zoo.animals} />
+      <Animals animals={zoo?.animals} />
     </div>
   );
 }
