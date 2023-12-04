@@ -1,4 +1,4 @@
-const {INCREMENTO, DECREMENTO} = require('../action-types');
+const {INCREMENTO, DECREMENTO, INCREMENTO_IMPAR} = require('../action-types');
 
 const initialState = {
   contador: 0,
@@ -9,22 +9,31 @@ const initialState = {
 // ¿Qué tiene que hacer el reducer con el contador de cada caso?
 
 function contador(state = initialState, action) {
-  // Dependiendo del tipo de acción, se realiza una operación diferente
   switch (action.type) {
     case INCREMENTO:
-      // En caso de incremento, aumentamos el valor del contador en 1
       return {
         ...state,
         contador: state.contador + 1,
       };
     case DECREMENTO:
-      // En caso de decremento, disminuimos el valor del contador en 1
       return {
         ...state,
         contador: state.contador - 1,
       };
+    case INCREMENTO_IMPAR:
+      if (state.contador % 2 === 0) {
+        return {
+          ...state,
+          contador: state.contador + 1,
+        };
+      } else {
+        return {
+          ...state,
+          contador: state.contador + 2,
+        };
+      }
+
     default:
-      // En caso de que la acción no sea reconocida, devolvemos el estado actual sin cambios
       return state;
   }
 }
