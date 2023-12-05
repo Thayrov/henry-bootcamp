@@ -1,11 +1,11 @@
 import {connect} from 'react-redux';
-import React, {useEffect} from 'react';
+import React from 'react';
 import './products.css';
 import Card from '../Card/Card';
 import {getStoreName} from '../../redux/actions/actions';
 
 export function Products({list, storeName, getStoreName}) {
-  useEffect(() => {
+  React.useEffect(() => {
     getStoreName();
     // eslint-disable-next-line
   }, []);

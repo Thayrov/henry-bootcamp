@@ -5,15 +5,11 @@ import './form.css';
 import {addProduct} from '../../redux/actions/actions';
 
 class Form extends React.Component {
-  constructor({addProduct}) {
-    super({addProduct});
-
-    this.state = {
-      name: '',
-      price: '',
-      id: '',
-    };
-  }
+  state = {
+    name: '',
+    price: '',
+    id: '',
+  };
 
   handleInputChange = event => {
     let {name, value} = event.target;
@@ -22,7 +18,7 @@ class Form extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.addProduct({
+    this.props.addProduct({
       ...this.state,
       id: Date.now(),
     });
@@ -34,20 +30,17 @@ class Form extends React.Component {
   };
 
   render() {
+    const {name, price} = this.state;
+
     return (
       <form className='formBg' onSubmit={this.handleSubmit}>
         <div className='inputBox'>
           <label>Nombre: </label>
-          <input name='name' onChange={this.handleInputChange} value={this.state.name} />
+          <input name='name' onChange={this.handleInputChange} value={name} />
         </div>
         <div className='inputBox'>
           <label>Precio:</label>
-          <input
-            type='number'
-            name='price'
-            onChange={this.handleInputChange}
-            value={this.state.price}
-          />
+          <input type='number' name='price' onChange={this.handleInputChange} value={price} />
         </div>
         <button className='formBtn'>¡ADD!</button>
         <img src={Caja} alt='' className='logo' />
