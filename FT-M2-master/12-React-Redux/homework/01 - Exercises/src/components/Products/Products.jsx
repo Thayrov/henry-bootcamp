@@ -10,9 +10,9 @@ export function Products({list, storeName, getStoreName}) {
     // eslint-disable-next-line
   }, []);
 
-  const products = list.map(({id, name, price}) => (
-    <Card key={id} name={name} price={price} id={id} />
-  ));
+  const products = list
+    .slice(0, 9)
+    .map(({id, name, price}) => <Card key={id} name={name} price={price} id={id} />);
   return (
     <>
       <div className='productsBg'>

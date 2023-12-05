@@ -18,10 +18,24 @@ class Form extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.addProduct({
+    const {name, price} = this.state;
+    const {list, addProduct} = this.props;
+
+    if (!name || !price) {
+      alert('Por favor, completa todos los campos.');
+      return;
+    }
+
+    if (list.some(product => product.name === name)) {
+      alert('Ya existe un producto con ese nombre.');
+      return;
+    }
+
+    addProduct({
       ...this.state,
       id: Date.now(),
     });
+
     this.setState({
       name: '',
       price: '',
@@ -55,4 +69,10 @@ export function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(Form);
+export function mapStateToProps(state) {
+  return {
+    list: state.list,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
