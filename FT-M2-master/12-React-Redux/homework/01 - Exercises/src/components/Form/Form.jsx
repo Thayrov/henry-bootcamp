@@ -1,50 +1,78 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import Caja from '../../assets/caja.png';
 import './form.css';
+import {addProduct} from '../../redux/actions/actions';
 
-class Form extends React.Component{
-   constructor(props){
-      super(props)
+class Form extends React.Component {
+  state = {
+    name: '',
+    price: '',
+    id: '',
+  };
 
-      this.state = {
-         name: "",
-         price: "",
-         id: ""
-      }
-   }
+  handleInputChange = event => {
+    let {name, value} = event.target;
+    this.setState({...this.state, [name]: value});
+  };
 
-   handleInputChange = (event) => {
-      this.setState({ ...this.state, [event.target.name]: event.target.value });
-   }
+  handleSubmit = event => {
+    event.preventDefault();
+    const {name, price} = this.state;
+    const {list, addProduct} = this.props;
 
-   render(){
-      return (
-         <form className='formBg'>
-            <div className='inputBox'>
-               <label>Nombre: </label>
-               <input
-                  name='name'
-                  onChange={this.handleInputChange}
-                  value={this.state.name}
-               />
-            </div>
-            <div className='inputBox'>
-               <label>Precio:</label>
-               <input
-                  type='number'
-                  name='price'
-                  onChange={this.handleInputChange}
-                  value={this.state.price}
-               />
-            </div>
-            <button className='formBtn'>¡ADD!</button>
-            <img src={Caja} alt='' className='logo' />
-         </form>
-      )
-   }
+    if (!name || !price) {
+      alert('Por favor, completa todos los campos.');
+      return;
+    }
+
+    if (list.some(product => product.name === name)) {
+      alert('Ya existe un producto con ese nombre.');
+      return;
+    }
+
+    addProduct({
+      ...this.state,
+      id: Date.now(),
+    });
+
+    this.setState({
+      name: '',
+      price: '',
+      id: '',
+    });
+  };
+
+  render() {
+    const {name, price} = this.state;
+
+    return (
+      <form className='formBg' onSubmit={this.handleSubmit}>
+        <div className='inputBox'>
+          <label>Nombre: </label>
+          <input name='name' onChange={this.handleInputChange} value={name} />
+        </div>
+        <div className='inputBox'>
+          <label>Precio:</label>
+          <input type='number' name='price' onChange={this.handleInputChange} value={price} />
+        </div>
+        <button className='formBtn'>¡ADD!</button>
+        <img src={Caja} alt='' className='logo' />
+      </form>
+    );
+  }
 }
 
-export function mapDispatchToProps() {}
+export function mapDispatchToProps(dispatch) {
+  return {
+    addProduct: product => dispatch(addProduct(product)),
+  };
+}
 
-export default connect(null, mapDispatchToProps)(Form);
+export function mapStateToProps(state) {
+  return {
+    list: state.list,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
