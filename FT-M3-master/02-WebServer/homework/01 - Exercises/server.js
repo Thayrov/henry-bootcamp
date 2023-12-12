@@ -30,6 +30,8 @@ const server = http
       });
       return;
     }
+    res.writeHead(404, {'Content-Type': 'text/plain'});
+    res.end('Route not found');
   })
   .listen(PORT, 'localhost');
 /* ⚠️ LA LÍNEA SIGUIENTE TIENE QUE QUEDAR COMO ESTÁ PARA PODER EXPORTAR EL SERVIDOR ⚠️ */
