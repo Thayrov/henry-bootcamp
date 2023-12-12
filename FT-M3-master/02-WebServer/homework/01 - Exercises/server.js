@@ -6,6 +6,18 @@ const PORT = 3001;
 const server = http
   .createServer((req, res) => {
     console.log(`Server raised in port ${PORT}`);
+    if (req.url === '/api') {
+      fs.readFile('./utils/dogsData.json', (err, data) => {
+        if (err) {
+          res.writeHead(404, {'Content-Type': 'text/plain'});
+          res.end('json not found');
+        } else {
+          res.writeHead(200, {'Content-Type': 'application/json'});
+          res.end(data);
+        }
+      });
+      return;
+    }
   })
   .listen(PORT, 'localhost');
 /* ⚠️ LA LÍNEA SIGUIENTE TIENE QUE QUEDAR COMO ESTÁ PARA PODER EXPORTAR EL SERVIDOR ⚠️ */
