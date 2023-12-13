@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-let fs = require("fs");
-let chalk = require("chalk");
+let fs = require('fs');
+let chalk = require('chalk');
 
 let utils = {};
 
@@ -18,7 +18,7 @@ utils.readFile = function (filename, callback) {
 utils.promisifiedReadFile = function (filename) {
   return new Promise(function (resolve, reject) {
     let readFileSync = fs.readFileSync(filename);
-    if (!readFileSync) return reject("File not found");
+    if (!readFileSync) return reject('File not found');
     resolve(readFileSync.toString());
   });
 };
