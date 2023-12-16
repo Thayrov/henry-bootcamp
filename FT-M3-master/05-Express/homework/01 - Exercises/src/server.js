@@ -72,5 +72,24 @@ server.put('/posts/:id', (req, res) => {
   }
 });
 
+server.delete('/posts/:id', (req, res) => {
+  const {id} = req.params;
+  const postIndex = publications.findIndex(post => post.id === Number(id));
+  if (postIndex > -1) {
+    publications.splice(postIndex, 1);
+    res.status(200).json({success: true});
+  } else {
+    const errorObject = {
+      error: 'No se recibió el id correcto necesario para eliminar la publicación',
+    };
+    res.status(400).json(errorObject);
+  }
+});
+
+server.delete('/posts', (req, res) => {
+  const errorObject = {error: 'No se recibió el id de la publicación a eliminar'};
+  res.status(400).json(errorObject);
+});
+
 //NO MODIFICAR EL CODIGO DE ABAJO. SE USA PARA EXPORTAR EL SERVIDOR Y CORRER LOS TESTS
 module.exports = {publications, server};
