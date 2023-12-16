@@ -25,5 +25,17 @@ server.post('/posts', (req, res) => {
   }
 });
 
+server.get('/posts', (req, res) => {
+  const filteredPublications = publications.filter(
+    post => post.author === req.query.author && post.title === req.query.title,
+  );
+  if (filteredPublications.length > 0) {
+    res.status(200).json(filteredPublications);
+  } else {
+    const errorObject = {error: 'No existe ninguna publicación con dicho título y autor indicado'};
+    res.status(400).json(errorObject);
+  }
+});
+
 //NO MODIFICAR EL CODIGO DE ABAJO. SE USA PARA EXPORTAR EL SERVIDOR Y CORRER LOS TESTS
 module.exports = {publications, server};
