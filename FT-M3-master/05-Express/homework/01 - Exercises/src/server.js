@@ -37,5 +37,7 @@ server.get('/posts', (req, res) => {
   }
 });
 
+server.get('/posts/:author', (req, res) => {});
+
 //NO MODIFICAR EL CODIGO DE ABAJO. SE USA PARA EXPORTAR EL SERVIDOR Y CORRER LOS TESTS
 module.exports = {publications, server};
