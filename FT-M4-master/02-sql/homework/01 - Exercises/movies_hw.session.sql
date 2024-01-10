@@ -43,11 +43,18 @@ FROM
 WHERE
   ARRAY_LENGTH(actors, 1) = 1;
 
+SELECT
+  *
+FROM
+  movies
+WHERE
+  CARDINALITY(actors) = 1;
+
 -- 👩‍💻 EJERCICIO 6
 -- ¿Cómo sería el comando para obtener el título de cada película, incluyendo el promedio de todas sus puntuaciones de rating? Recuerda que "rating" es una propiedad de la tabla movies, y es un arreglo de números.
 SELECT
   title,
-  AVG(rating) AS avg_rating
+  ROUND(AVG(rating), 2) AS avg_rating
 FROM
   movies,
   UNNEST(ratings) AS rating
@@ -58,9 +65,9 @@ SELECT
   title,
   (
     SELECT
-      AVG(rating_element)
+      ROUND(AVG(rating), 2) AS avg_rating
     FROM
-      UNNEST(ratings) AS rating_element
+      UNNEST(ratings) AS rating
   )
 FROM
   movies;
