@@ -4,9 +4,9 @@ module.exports = sequelize => {
   sequelize.define(
     'Ability',
     {
-      name: {type: DataTypes.STRING, notNull: true},
+      name: {type: DataTypes.STRING, allowNull: false},
       description: {type: DataTypes.TEXT},
-      mana_cost: {type: DataTypes.FLOAT, notNull: true},
+      mana_cost: {type: DataTypes.FLOAT, allowNull: false, validate: {min: 10.0, max: 250.0}},
     },
     {indexes: [{name: 'compositeIndex', fields: ['name', 'mana_cost'], unique: true}]},
   );

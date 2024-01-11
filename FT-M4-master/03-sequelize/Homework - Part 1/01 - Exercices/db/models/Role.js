@@ -2,7 +2,7 @@ const {DataTypes} = require('sequelize');
 
 module.exports = sequelize => {
   sequelize.define('Role', {
-    name: {type: DataTypes.STRING, notNull: true, unique: true},
+    name: {type: DataTypes.STRING, allowNull: false, unique: true},
     description: {type: DataTypes.STRING},
   });
 };
