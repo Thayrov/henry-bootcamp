@@ -23,7 +23,13 @@ module.exports = sequelize => {
           notIn: [['Henry', 'SoyHenry', 'Soy Henry']],
         },
       },
-      age: {type: DataTypes.INTEGER},
+      age: {
+        type: DataTypes.INTEGER,
+        get() {
+          const rawValue = this.getDataValue('age');
+          return rawValue && (rawValue = `${rawValue} years old`);
+        },
+      },
       race: {
         type: DataTypes.ENUM('Human', 'Elf', 'Machine', 'Demon', 'Animal', 'Other'),
         defaultValue: 'Other',

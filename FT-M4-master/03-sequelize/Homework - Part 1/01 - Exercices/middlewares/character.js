@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const {Op, Character, Role, db} = require('../db');
+const {Op, Character, Role} = require('../db');
 const router = Router();
 
 router.post('/', async (req, res) => {
@@ -32,7 +32,6 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
   const {race, age} = req.query;
   try {
-    const {Character} = db.models;
     let whereObj = {};
     if (age && race) {
       whereObj.race = race;
@@ -55,7 +54,6 @@ router.get('/', async (req, res) => {
 router.get('/:code', async (req, res) => {
   const {code} = req.params;
   try {
-    const {Character} = db.models;
     const character = await Character.findOne({where: {code}});
     if (!character) {
       return res.status(404).send(`El código ${code} no corresponde a un personaje existente`);
@@ -72,9 +70,36 @@ router.put('/:attribute', async (req, res) => {
   const {attribute} = req.params;
 
   try {
-    const {Character} = db.models;
     await Character.update({[attribute]: value}, {where: {[attribute]: null}});
     return res.status(200).send('Personajes actualizados');
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Error interno del servidor');
+  }
+});
+
+router.put('/addAbilities', async (req, res) => {
+  const {codeCharacter, abilities} = req.body;
+  try {
+    await Character.update({abilities}, {where: {code: codeCharacter}});
+    const updatedCharacter = await Character.findOne({where: {code: codeCharacter}});
+    return res.status(200).send(updatedCharacter);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Error interno del servidor');
+  }
+});
+
+router.get('/roles', async (req, res) => {
+  const {code} = req.params;
+  try {
+    const character = await Character.findOne({where: {code}});
+    const roles = await Role.findAll({where: {CharacterCode: code}});
+    const characterWithRoles = {
+      ...character,
+      Roles: roles,
+    };
+    return res.status(200).send(characterWithRoles);
   } catch (error) {
     console.error(error);
     return res.status(500).send('Error interno del servidor');
